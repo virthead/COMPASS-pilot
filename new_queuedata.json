@@ -1,0 +1,3 @@
+{
+  "error": "(agis.utils.exceptions.NonExistsException) Failed to resolve object PandaQueueObject by parameter \"panda_queue\", not found in DB, names=set([u'ANALY_LXPUB_TEST'])"
+}
