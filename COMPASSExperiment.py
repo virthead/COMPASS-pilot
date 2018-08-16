@@ -211,7 +211,7 @@ class COMPASSExperiment(Experiment):
         number_of_jobs = len(runCommandList)
         filename = getStdoutFilename(job.workdir, job.stdout, current_job_number, number_of_jobs)
         
-        if job.trf == 'test production' or job.trf == 'merging mdst':        
+        if job.trf == 'test production' or job.trf == 'merging mdst' or job.trf == 'mass production' or job.trf == 'technical production':
             # Try to identify something wrong in stdout and stderr of job
             is_end_of_job = self.isSomethingInStd(job=job, number_of_jobs=number_of_jobs, what="End of Job", where="stdout")
         elif job.trf == 'DDD filtering':
