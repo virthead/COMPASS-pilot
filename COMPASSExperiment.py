@@ -229,13 +229,14 @@ class COMPASSExperiment(Experiment):
         cant_connect_to_cdb = self.isSomethingInStd(job=job, number_of_jobs=number_of_jobs, what="CsEvent::getNextEvent: can't connect to CDB database", where="stderr")
         read_calib_bad_line = self.isSomethingInStd(job=job, number_of_jobs=number_of_jobs, what="Exception in readCalibration(): EC02P1__: InputTiSdepCorr EC02P1__ bad line", where="stderr")
         killed = self.isSomethingInStd(job=job, number_of_jobs=number_of_jobs, what="Killed\* \$CORAL/../phast/coral/coral.exe", where="stderr")
+        exiting_with_code3 = self.isSomethingInStd(job=job, number_of_jobs=number_of_jobs, what="CORAL exiting with return code -3", where="stdout")
         
         failed = False
         is_no_end_of_job = False
         if not is_end_of_job:
             failed = True
             is_no_end_of_job = True
-        if a_fatal_error_appeared or core_dumped or no_events or abnormal_job_termination or aborted or cannot_allocate or empty_string or cant_connect_to_cdb or read_calib_bad_line or killed:
+        if a_fatal_error_appeared or core_dumped or no_events or abnormal_job_termination or aborted or cannot_allocate or empty_string or cant_connect_to_cdb or read_calib_bad_line or killed or exiting_with_code3:
             failed = True
         
         # A killed job can have empty output but still transExitCode == 0
@@ -304,6 +305,9 @@ class COMPASSExperiment(Experiment):
             elif killed:
                 job.pilotErrorDiag = "Killed $CORAL/../phast/coral/coral.exe"
                 job.result[2] = error.ERR_KILLED
+            elif exiting_with_code3:
+                job.pilotErrorDiag = "CORAL exiting with return code -3"
+                job.result[2] = error.ERR_EXITED_WITH_CODE3
             elif is_no_end_of_job:
                 job.pilotErrorDiag = "No End of Job message found in stdout"
                 job.result[2] = error.ERR_NOENDOFJOB
