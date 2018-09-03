@@ -155,6 +155,13 @@ class COMPASSSiteInformation(SiteInformation):
                 if filename == "payload_stderr.txt":
                     se_path = sw_prefix + sw_path + PRODSOFT + '/logFiles'
                     filename = prod_name + '.' + TMPHISTFILE.replace('.root', '.stderr')
+                # .txt.gz will replace .txt, for back compatibility both are placed
+                if filename == "payload_stdout.txt.gz":
+                    se_path = sw_prefix + sw_path + PRODSOFT + '/logFiles'
+                    filename = prod_name + '.' + TMPHISTFILE.replace('.root', '.stdout.gz')
+                if filename == "payload_stderr.txt.gz":
+                    se_path = sw_prefix + sw_path + PRODSOFT + '/logFiles'
+                    filename = prod_name + '.' + TMPHISTFILE.replace('.root', '.stderr.gz')
                 
                 # merge
                 if filename == MERGEDMDSTFILE :
