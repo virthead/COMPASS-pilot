@@ -156,10 +156,10 @@ class COMPASSSiteInformation(SiteInformation):
                     se_path = sw_prefix + sw_path + PRODSOFT + '/logFiles'
                     filename = prod_name + '.' + TMPHISTFILE.replace('.root', '.stderr')
                 # .txt.gz will replace .txt, for back compatibility both are placed
-                if filename == "payload_stdout.txt.gz":
+                if filename == "payload_stdout.out.gz":
                     se_path = sw_prefix + sw_path + PRODSOFT + '/logFiles'
                     filename = prod_name + '.' + TMPHISTFILE.replace('.root', '.stdout.gz')
-                if filename == "payload_stderr.txt.gz":
+                if filename == "payload_stderr.out.gz":
                     se_path = sw_prefix + sw_path + PRODSOFT + '/logFiles'
                     filename = prod_name + '.' + TMPHISTFILE.replace('.root', '.stderr.gz')
                 
