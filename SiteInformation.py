@@ -331,7 +331,7 @@ class SiteInformation(object):
                 sslCert = os.environ['X509_USER_PROXY']
             else:
                 sslCert  = '/tmp/x509up_u%s' % str(os.getuid())
-            cmd = 'curl --connect-timeout 20 --max-time 120 --cacert %s -sS "%s:985/cache/schedconfig/%s.all.%s" > %s' % \
+            cmd = 'curl --connect-timeout 20 --max-time 120 --cacert %s -sS "%s:25085/cache/schedconfig/%s.all.%s" > %s' % \
                   (sslCert, url, queuename, getExtension(alternative='pilot'), filename)
             _N = 3
             for _i in range(_N):
