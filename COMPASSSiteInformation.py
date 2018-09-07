@@ -126,6 +126,7 @@ class COMPASSSiteInformation(SiteInformation):
                 
                 tolog("job.payload: %s" % (job.payload))
                 tolog("job.trf: %s" % (job.trf))
+                tolog("filename: %s" % (filename))
                 
                 tolog("Trying to get sw path, name and hist filename from job definition.")
                 sw_prefix, sw_path, prod_name, prodSlt, TMPMDSTFILE, TMPHISTFILE, EVTDUMPFILE, MERGEDMDSTFILE, MERGEDHISTFILE, MERGEDDUMPFILE, PRODSOFT = self.getSWPathAndNameAndFilename(job.jobPars)
