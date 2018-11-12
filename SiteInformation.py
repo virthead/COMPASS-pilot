@@ -64,7 +64,7 @@ class SiteInformation(object):
                 tolog("!!WARNING!!2999!! Could not read queuedata file: %s" % str(e))
                 fh = None
         if fh:
-            # 
+            #
             queuedata = fh.read()
             fh.close()
             if queuedata != "":
@@ -291,8 +291,8 @@ class SiteInformation(object):
 
         # Input:
         #   queuename = name of the PanDA queue (e.g. CERN-PROD-all-prod-CEs)
-        #   forceDownload = False (default), 
-        #   alt = False (default), if alternative queuedata should be downloaded (if stage-out to an alternative SE, new queuedata is needed 
+        #   forceDownload = False (default),
+        #   alt = False (default), if alternative queuedata should be downloaded (if stage-out to an alternative SE, new queuedata is needed
         #         but it will not overwrite the old queuedata)
         # Returns:
         #   error code (int), status for queuedata download (boolean)
@@ -331,7 +331,14 @@ class SiteInformation(object):
                 sslCert = os.environ['X509_USER_PROXY']
             else:
                 sslCert  = '/tmp/x509up_u%s' % str(os.getuid())
-            cmd = 'curl --connect-timeout 20 --max-time 120 --cacert %s -sS "%s:25085/cache/schedconfig/%s.all.%s" > %s' % \
+
+            url_data = {'proto':'https', 'port':'25085', 'host':url} ## set default port value here
+            r = re.search(r'^((?P<proto>.*?)://)?(?P<host>[^:/]+)(:(?P<port>[0-9]+))?', url)
+            if r:
+                url_data.update(dict(filter(lambda x:x[1], r.groupdict().iteritems())))
+            # serialize back to url
+            url = "://".join(filter(None, [url_data.get('proto'), ':'.join(filter(None, [url_data.get('host'), url_data.get('port')]))]))
+            cmd = 'curl --connect-timeout 20 --max-time 120 --cacert %s -sS "%s/cache/schedconfig/%s.all.%s" > %s' % \
                   (sslCert, url, queuename, getExtension(alternative='pilot'), filename)
             _N = 3
             for _i in range(_N):
@@ -619,7 +626,7 @@ class SiteInformation(object):
                             fields[n-1] = "True"  # directIn
                             fields[n-2] = "False" # useFileStager
                         if transferType == "direct":
-                            fields[n-1] = "True"  # directIn 
+                            fields[n-1] = "True"  # directIn
                             fields[n-2] = "False" # make sure file stager is turned off
                     # in case directIn or useFileStager were set in jobParameters or with transferType
                     else:
@@ -903,7 +910,7 @@ class SiteInformation(object):
                 tolog("Cut away trailing / from %s (see copyprefix[in])" % (pfrom))
         if pto == "":
             pto = "dummy"
-        
+
         if "," in pfrom:
             pfroms = pfrom.split(",")
         else:
@@ -1090,7 +1097,7 @@ class SiteInformation(object):
     # Required if use S3 objectstore
     def getSecurityKey(self, privateKeyName, publicKeyName):
         """ Return the key pair """
-        
+
         return {"publicKey": None, "privateKey": None}
 
     # Required if use S3 objectstore
