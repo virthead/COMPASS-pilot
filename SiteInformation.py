@@ -332,7 +332,7 @@ class SiteInformation(object):
             else:
                 sslCert  = '/tmp/x509up_u%s' % str(os.getuid())
 
-            url_data = {'proto':'https', 'port':'25085', 'host':url} ## set default port value here
+            url_data = {'proto':'http', 'port':'25085', 'host':url} ## set default port value here
             r = re.search(r'^((?P<proto>.*?)://)?(?P<host>[^:/]+)(:(?P<port>[0-9]+))?', url)
             if r:
                 url_data.update(dict(filter(lambda x:x[1], r.groupdict().iteritems())))
